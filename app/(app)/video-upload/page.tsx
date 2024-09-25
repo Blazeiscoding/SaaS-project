@@ -17,7 +17,7 @@ function VideoUpload() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!file) return;
-
+        
         if (file.size > MAX_FILE_SIZE) {
             //TODO: add notification
             alert("File size too large")
@@ -33,7 +33,7 @@ function VideoUpload() {
 
         try {
             const response = await axios.post("/api/video-upload", formData)
-            return response.data()
+            // check for 200 response
             router.push("/")
         } catch (error) {
             console.log(error)

@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
         const file = formData.get('file') as File;
         const title = formData.get('title') as string;
         const description = formData.get('description') as string;
-        const orignalSize = formData.get('orignalSize') as string;
+        const originalSize = formData.get('originalSize') as string;
         if(!file){
             return NextResponse.json({ error: 'No file provided' }, { status: 400 });
         }
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
                 title,
                 description,
                 publicId: result.public_id,
-                originalSize: orignalSize,
+                originalSize: originalSize,
                 compressedSize: String(result.bytes),
                 duration: result.duration || 0 ,
             }

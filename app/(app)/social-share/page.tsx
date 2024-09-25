@@ -18,7 +18,7 @@ type SocialFormat = keyof typeof socialFormats;
 
 export default function SocialShare(){
   
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploadedImage, setUploadedImage] = useState<string | null>("");
   const [selectedFormat, setSelectedFormat] = useState<SocialFormat>("Instagram Square (1:1)");
   const [isUploading, setIsUploading] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
@@ -45,7 +45,7 @@ export default function SocialShare(){
         if(!response.ok) throw new Error("Failed to upload image");
 
         const data = await response.json();
-        setUploadedImage(data.publicId);
+        setUploadedImage(data.public_id)
 
 
     } catch (error) {
@@ -56,25 +56,25 @@ export default function SocialShare(){
     }
 };
 
-  const handleDownload = ()=>{
-    if(!imageRef.current) return;
+const handleDownload = () => {
+  if(!imageRef.current) return;
 
-    fetch(imageRef.current.src)
-    .then((response)=> response.blob())
-    .then((blob)=>{
+  fetch(imageRef.current.src)
+  .then((response) => response.blob())
+  .then((blob) => {
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement("a");
       link.href = url;
       link.download = `${selectedFormat
-      .replace(/\s+/g, "_")
-      .toLowerCase()}.png`;
+    .replace(/\s+/g, "_")
+    .toLowerCase()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
-    })
-  }
+  })
+}
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
