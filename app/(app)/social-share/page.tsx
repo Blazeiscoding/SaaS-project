@@ -22,6 +22,7 @@ export default function SocialShare(){
   const [selectedFormat, setSelectedFormat] = useState<SocialFormat>("Instagram Square (1:1)");
   const [isUploading, setIsUploading] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
+  
   const imageRef = useRef<HTMLImageElement>(null);
   useEffect(()=>{
     if(uploadedImage){
@@ -46,7 +47,7 @@ export default function SocialShare(){
 
         const data = await response.json();
         setUploadedImage(data.public_id)
-
+        
 
     } catch (error) {
         console.log(error)
@@ -66,8 +67,8 @@ const handleDownload = () => {
       const link = document.createElement("a");
       link.href = url;
       link.download = `${selectedFormat
-    .replace(/\s+/g, "_")
-    .toLowerCase()}.png`;
+      .replace(/\s+/g, "_")
+      .toLowerCase()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -75,6 +76,8 @@ const handleDownload = () => {
       document.body.removeChild(link);
   })
 }
+
+
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
@@ -137,7 +140,7 @@ const handleDownload = () => {
                   alt="transformed image"
                   crop="fill"
                   aspectRatio={socialFormats[selectedFormat].aspectRatio}
-                  gravity='auto'
+                  gravity='auto'             
                   ref={imageRef}
                   onLoad={() => setIsTransforming(false)}
                   />

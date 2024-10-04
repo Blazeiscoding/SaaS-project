@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         if(!file){
             return NextResponse.json({ error: 'No file provided' }, { status: 400 });
         }
-
+        
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
                 {folder:"video-upload",
                 resource_type:"video",
                 transformations:[
-                    {quality: "auto",width: 300, height: 300, crop: "fill",fetch_format:"mp4"},
+                    {quality: "auto:low",width: 300, height: 300, crop: "fill",fetch_format:"mp4"},
                 ]
                 },
                 (error, result) => {
